@@ -631,7 +631,7 @@ test.describe('PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1', () => {
   });
 });
 
-playwrightTest('should trigger context close event when last page closed if not mac', async ({ browserType, createUserDataDir, isMac }, testInfo) => {
+playwrightTest('should trigger context close event when last page closed if context option has persistent and not mac', async ({ browserType, createUserDataDir, isMac }, testInfo) => {
   if (!isMac) {
     const context = await browserType.launchPersistentContext(await createUserDataDir());
     let closed = false;
