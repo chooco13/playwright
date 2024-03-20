@@ -275,7 +275,7 @@ export class CRBrowser extends Browser {
   }
 
   async _closePage(crPage: CRPage) {
-    if (this.options.persistent && this._platform() !== 'mac' && this._crPages.size === 1)
+    if (this.options.persistent  && this.options.proxy === undefined && this._platform() !== 'mac' && this._crPages.size === 1)
       await this.close({ reason: 'Last Page closed' });
     await this._session.send('Target.closeTarget', { targetId: crPage._targetId });
   }
