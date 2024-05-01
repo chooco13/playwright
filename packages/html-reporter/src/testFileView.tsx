@@ -47,8 +47,8 @@ export const TestFileView: React.FC<React.PropsWithChildren<{
               {statusIcon(test.outcome)}
             </span>
             <span>
-              <Link href={`#?testId=${test.testId}`} title={[...test.path, test.title].join(' › ')}>
-                <span className='test-file-title'>{[...test.path, test.title].join(' › ')}</span>
+              <Link href={`#?testId=${test.testId}`} title={[...emptyPathFilter(test.path), test.title].join(' › ')}>
+                <span className='test-file-title'>{[...emptyPathFilter(test.path), test.title].join(' › ')}</span>
               </Link>
               {report.projectNames.length > 1 && !!test.projectName &&
               <ProjectLink projectNames={report.projectNames} projectName={test.projectName} />}
@@ -58,7 +58,7 @@ export const TestFileView: React.FC<React.PropsWithChildren<{
           <span data-testid='test-duration' style={{ minWidth: '50px', textAlign: 'right' }}>{msToString(test.duration)}</span>
         </div>
         <div className='test-file-details-row'>
-          <Link href={`#?testId=${test.testId}`} title={[...test.path, test.title].join(' › ')} className='test-file-path-link'>
+          <Link href={`#?testId=${test.testId}`} title={[...emptyPathFilter(test.path), test.title].join(' › ')} className='test-file-path-link'>
             <span className='test-file-path'>{test.location.file}:{test.location.line}</span>
           </Link>
           {imageDiffBadge(test)}
@@ -85,6 +85,10 @@ function videoBadge(test: TestCaseSummary): JSX.Element | undefined {
 function traceBadge(test: TestCaseSummary): JSX.Element | undefined {
   const firstTraces = test.results.map(result => result.attachments.filter(attachment => attachment.name === 'trace')).filter(traces => traces.length > 0)[0];
   return firstTraces ? <Link href={generateTraceUrl(firstTraces)} title='View trace' className='test-file-badge'>{trace()}</Link> : undefined;
+}
+
+export function emptyPathFilter(path: string[]): string[] {
+  return path.filter(path => path.length > 0);
 }
 
 const LabelsClickView: React.FC<React.PropsWithChildren<{

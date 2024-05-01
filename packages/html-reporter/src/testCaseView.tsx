@@ -22,6 +22,7 @@ import './common.css';
 import { ProjectLink } from './links';
 import { statusIcon } from './statusIcon';
 import './testCaseView.css';
+import { emptyPathFilter } from './testFileView';
 import { TestResultView } from './testResultView';
 import { hashStringToInt } from './labelUtils';
 import { msToString } from './uiUtils';
@@ -41,7 +42,7 @@ export const TestCaseView: React.FC<{
   }, [test]);
 
   return <div className='test-case-column vbox'>
-    {test && <div className='test-case-path'>{test.path.join(' › ')}</div>}
+    {test && <div className='test-case-path'>{emptyPathFilter(test.path).join(' › ')}</div>}
     {test && <div className='test-case-title'>{test?.title}</div>}
     {test && <div className='hbox'>
       <div className='test-case-location'>{test.location.file}:{test.location.line}</div>
